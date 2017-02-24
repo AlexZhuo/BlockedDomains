@@ -1,7 +1,7 @@
 #获得ipset版的gfwlist
-python gfwlist2dnsmasq.py
+./gfwlist2dnsmasq.sh -d 127.0.0.1 -p 5053 -s china -f ./gfw_list.conf
 #取出域名列表
-awk -F '/' '/server=\/(.*)\/[0-9]+.[0-9]+.[0-9]+.[0-9]+#[0-9]+/'{'print substr($2,2)'} ./gfw_list.conf | sed 's/^www\.//g' > ./china-banned
+awk -F '/' '/server=\/(.*)\/[0-9]+.[0-9]+.[0-9]+.[0-9]+#[0-9]+/'{'print $2'} ./gfw_list.conf | sed 's/^www\.//g' > ./china-banned
 #获取最新国内路由表
 wget -O- 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | grep ipv4 | grep CN | awk -F\| '{ printf("%s/%d\n", $4, 32-log($5)/log(2)) }' > china_route
 #生成ipset restore文件
