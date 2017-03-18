@@ -1,5 +1,5 @@
 #获得ipset版的gfwlist
-./gfwlist2dnsmasq.sh -d 127.0.0.1 -p 5053 -s china -f ./gfw_list.conf
+./gfwlist2dnsmasq.sh -d 127.0.0.1 -p 5053 -s china -o ./gfw_list.conf
 #取出域名列表
 awk -F '/' '/server=\/(.*)\/[0-9]+.[0-9]+.[0-9]+.[0-9]+#[0-9]+/'{'print $2'} ./gfw_list.conf | sed 's/^www\.//g' > ./china-banned
 #获取最新国内路由表
